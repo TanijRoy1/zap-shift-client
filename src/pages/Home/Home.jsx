@@ -5,6 +5,7 @@ import Reviews from './Reviews/Reviews';
 import HowItWorks from './HowItWorks/HowItWorks';
 import Services from './Services/Services';
 import KeyServices from './KeyServices/KeyServices';
+import BeAMerchant from './BeAMerchant/BeAMerchant';
 
 const reviewsPromise = fetch("./reviews.json").then(res => res.json());
 
@@ -16,6 +17,7 @@ const Home = () => {
             <Services></Services>
             <Brands></Brands>
             <KeyServices></KeyServices>
+            <BeAMerchant></BeAMerchant>
             <Reviews reviewsPromise={reviewsPromise}></Reviews>
         </div>
     );
