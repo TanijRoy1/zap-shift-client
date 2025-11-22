@@ -9,7 +9,7 @@ import { IoArrowForwardCircle } from "react-icons/io5";
 
 const Banner = () => {
   return (
-    <MyContainer>
+    <MyContainer className={`py-10`}>
       <Carousel autoPlay={true} infiniteLoop={true}>
         <div className="relative">
           <img src={bannerImg1} />

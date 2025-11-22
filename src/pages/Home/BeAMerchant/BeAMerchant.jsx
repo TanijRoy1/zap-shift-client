@@ -2,11 +2,12 @@ import React from 'react';
 import MyContainer from '../../../components/MyContainer';
 import beAMerchantImg from '../../../assets/be-a-merchant-bg.png';
 import locationMerchantImg from '../../../assets/location-merchant.png';
+import customerTop from '../../../assets/customer-top.png'
 
 
 const BeAMerchant = () => {
     return (
-        <MyContainer>
+        <MyContainer className={`flex flex-col items-center gap-8`}>
             <div className='bg-secondary rounded-2xl'>
                 <img src={beAMerchantImg} alt="" />
 
@@ -26,6 +27,7 @@ const BeAMerchant = () => {
                     <img src={locationMerchantImg} alt="" className='-ml-20' />
                 </div>
             </div>
+            <img src={customerTop} alt="" />
         </MyContainer>
     );
 };

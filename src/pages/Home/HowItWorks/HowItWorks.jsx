@@ -32,12 +32,12 @@ const servicesData = [
 const HowItWorks = () => {
     return (
         <MyContainer className={`py-10`}>
-            <h1 className='text-3xl font-bold mb-8'>How it Works</h1>
+            <h1 className='text-3xl font-bold mb-8 text-accent'>How it Works</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
                 {
-                    servicesData.map(service => <div key={service.id} className='p-8 border border-base-300 bg-base-100 shadow-md rounded'>
-                        <h1 className='text-3xl'>{service.icon}</h1>
-                        <h1 className='text-xl font-bold py-5'>{service.title}</h1>
+                    servicesData.map(service => <div key={service.id} className='p-8 border border-base-300 bg-base-100 shadow-md rounded-lg'>
+                        <h1 className='text-3xl text-accent'>{service.icon}</h1>
+                        <h1 className='text-xl font-bold py-5 text-accent'>{service.title}</h1>
                         <p>{service.description}</p>
                     </div>)
                 }
