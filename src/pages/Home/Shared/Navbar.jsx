@@ -2,8 +2,10 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "../../../components/Logo";
 import MyContainer from "../../../components/MyContainer";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user } = useAuth();
   const links = (
     <>
       <li>
@@ -57,7 +59,17 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
           <div className="navbar-end">
-            <Link to={`/login`} className="btn btn-primary text-accent">Login</Link>
+            {user ? (
+              <img
+                src={user.photoURL}
+                className="w-10 h-10 border-2 border-accent object-cover rounded-full"
+                alt=""
+              />
+            ) : (
+              <Link to={`/login`} className="btn btn-primary text-accent">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </MyContainer>
