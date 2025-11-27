@@ -19,3 +19,12 @@ body{
 .sectionHeading {
   @apply text-accent text-3xl font-bold text-center
 }
+.myNavLink {
+  @apply  rounded-full mx-1.5
+}
+.myNavLink:hover {
+  @apply  text-accent
+}
+.myNavLink.active {
+  @apply bg-[#CAEB66] text-accent
+}
