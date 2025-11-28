@@ -3,6 +3,8 @@ import MyContainer from "../../components/MyContainer";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const { register, handleSubmit, control } = useForm();
@@ -11,6 +13,8 @@ const SendParcel = () => {
   const receiverRegion = useWatch({ control, name: "receiverRegion" });
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   const regions = [...new Set(regionsDuplicate)];
+  const axiosSecure = useAxiosSecure();
+  const {user} = useAuth();
 
   const districtsByRegion = (region) => {
     const regionDistricts = serviceCenters.filter((c) => c.region === region);
@@ -19,7 +23,7 @@ const SendParcel = () => {
   };
 
   const handleSendParcel = (data) => {
-    console.log(data);
+    // console.log(data);
     const isDocument = data.parcelType === "document";
     const isSameDistrict = data.senderDistrict === data.receiverDistrict;
     const weight = parseFloat(data.parcelWeight);
@@ -39,8 +43,10 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
+    // console.log("delivery cost", cost);
+    data.cost = cost;
+    data.parcelWeight = parseFloat(data.parcelWeight);
 
-    console.log("delivery cost", cost);
     Swal.fire({
       title: "Agree with the cost?",
       text: `You have to pay ${cost} taka.`,
@@ -51,12 +57,15 @@ const SendParcel = () => {
       confirmButtonText: "I agree",
     }).then((result) => {
       if (result.isConfirmed) {
-
-        // Swal.fire({
-        //   title: "Deleted!",
-        //   text: "Your file has been deleted.",
-        //   icon: "success",
-        // });
+        axiosSecure.post("/parcels", data).then(res => {
+          if(res.data.insertedId){
+            Swal.fire({
+                title: "Added!",
+                text: "Your parcel has been saved.",
+                icon: "success",
+              });
+            }
+          })
       }
     });
 
@@ -124,6 +133,7 @@ const SendParcel = () => {
               <input
                 type="text"
                 {...register("senderName")}
+                defaultValue={user?.displayName}
                 className="input w-full"
                 placeholder="Sender Name"
               />
@@ -132,6 +142,7 @@ const SendParcel = () => {
               </label>
               <input
                 type="email"
+                defaultValue={user?.email}
                 {...register("senderEmail")}
                 className="input w-full"
                 placeholder="Sender Email"
