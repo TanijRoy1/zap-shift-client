@@ -1,22 +1,69 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "./SocialLogin";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const {signInUser} = useAuth();
+  const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleLoginUser = data => {
+      signInUser(data.email, data.password).then(res => {
+        toast.success(`${res.user.displayName} Signed In successfully.`);
+        navigate(location.state || "/");
+      })
+    }
+
   return (
     <div>
       <h1 className="text-3xl text-accent font-bold">Welcome Back</h1>
       <p className="mb-6">Login with ZapShift</p>
-      <form className="">
+      <form onSubmit={handleSubmit(handleLoginUser)} className="">
         <fieldset className="fieldset">
           <label className="label">Email</label>
-          <input type="email" className="input w-full" placeholder="Email" />
+          <input
+            type="email"
+            {...register("email", { required: true })}
+            className="input w-full"
+            placeholder="Email"
+          />
+          {errors.email?.type === "required" && (
+            <p className="text-red-500">Email is required</p>
+          )}
           <label className="label">Password</label>
           <input
             type="password"
+            {...register("password", {
+              required: true,
+              minLength: 6,
+              pattern:
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
+            })}
             className="input w-full"
             placeholder="Password"
           />
+          {errors.password?.type === "required" && (
+            <p className="text-red-500">Password is required</p>
+          )}
+          {errors.password?.type === "minLength" && (
+            <p className="text-red-500">
+              Password must be 6 characters or longer
+            </p>
+          )}
+          {errors.password?.type === "pattern" && (
+            <p className="text-red-500">
+              Password must have at least one uppercase , one lowercase, one
+              number and one special characters
+            </p>
+          )}
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
@@ -25,7 +72,7 @@ const Login = () => {
       </form>
       <p className="mt-3">
         Don’t have any account?{" "}
-        <Link to={`/register`} className="text-primary hover:underline">
+        <Link to={`/register`} state={location?.state} className="text-primary hover:underline">
           Register
         </Link>
       </p>

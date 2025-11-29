@@ -1,7 +1,7 @@
 import React from "react";
 import MyContainer from "../../components/MyContainer";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -14,7 +14,8 @@ const SendParcel = () => {
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   const regions = [...new Set(regionsDuplicate)];
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const districtsByRegion = (region) => {
     const regionDistricts = serviceCenters.filter((c) => c.region === region);
@@ -57,19 +58,20 @@ const SendParcel = () => {
       confirmButtonText: "I agree",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.post("/parcels", data).then(res => {
-          if(res.data.insertedId){
+        axiosSecure.post("/parcels", data).then((res) => {
+          if (res.data.insertedId) {
+            navigate("/dashboard/my-parcels");
             Swal.fire({
-                title: "Added!",
-                text: "Your parcel has been saved.",
-                icon: "success",
-              });
-            }
-          })
+              position: "center",
+              icon: "success",
+              title: "Your parcel has been created. Please pay.",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          }
+        });
       }
     });
-
-
   };
 
   return (

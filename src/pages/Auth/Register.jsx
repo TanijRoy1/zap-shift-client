@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "./SocialLogin";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
@@ -13,6 +13,7 @@ const Register = () => {
   } = useForm();
   const { signUpUser, updateUser, setUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRegistration = (data) => {
     const profileImg = data.photo[0];
@@ -40,7 +41,7 @@ const Register = () => {
           });
         });
 
-      navigate("/");
+      navigate(location.state || "/");
     });
   };
   return (
@@ -110,7 +111,7 @@ const Register = () => {
       </form>
       <p className="mt-3">
         Already have an account?{" "}
-        <Link to={`/login`} className="text-primary hover:underline">
+        <Link to={`/login`} state={location?.state} className="text-primary hover:underline">
           Login
         </Link>
       </p>
