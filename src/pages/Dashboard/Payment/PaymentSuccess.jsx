@@ -1,29 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { CheckCircle, Mail, Tag, Package, CreditCard, Calendar, Hash } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import {
+  CheckCircle,
+  Mail,
+  Tag,
+  Package,
+  CreditCard,
+  Calendar,
+  Hash,
+} from "lucide-react";
 
 const PaymentSuccess = () => {
-    const [searchParams] = useSearchParams();
-    const sessionId = searchParams.get("session_id");
-    // console.log(sessionId);
-    const axiosSecure = useAxiosSecure();
-    const [paymentInfo, setPaymentInfo] = useState({});
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+  console.log(sessionId);
+  const axiosSecure = useAxiosSecure();
+  const [paymentInfo, setPaymentInfo] = useState({});
 
-    useEffect(()=>{
-        if(sessionId){
-            axiosSecure.patch(`/payment-success?session_id=${sessionId}`).then(res => {
-                // console.log(res.data);
-                setPaymentInfo(res.data.paymentInfo);
-            })
-        }
-    },[sessionId, axiosSecure])
+  useEffect(() => {
+    if (sessionId) {
+      axiosSecure
+        .patch(`/payment-success?session_id=${sessionId}`)
+        .then((res) => {
+          console.log(res.data);
+          setPaymentInfo(res.data.paymentInfo);
+        });
+    }
+  }, [sessionId, axiosSecure]);
 
-    return (
-        <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
+  return (
+    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
       <div className="flex items-center gap-3 mb-4">
         <CheckCircle className="text-green-500 w-10 h-10" />
-        <h1 className="text-3xl font-bold text-green-600">Payment Successful</h1>
+        <h1 className="text-3xl font-bold text-green-600">
+          Payment Successful
+        </h1>
       </div>
 
       <p className="text-gray-600 mb-6">
@@ -31,12 +43,13 @@ const PaymentSuccess = () => {
       </p>
 
       <div className="space-y-3 text-gray-700">
-
         <div className="flex justify-between border-b pb-2">
           <span className="font-medium flex gap-2 items-center">
             <Tag size={18} /> Amount
           </span>
-          <span className="font-semibold">${paymentInfo.amount / 100} {paymentInfo.currency.toUpperCase()}</span>
+          <span className="font-semibold">
+            ${paymentInfo.amount / 100} {paymentInfo.currency}
+          </span>
         </div>
 
         <div className="flex justify-between border-b pb-2">
@@ -73,7 +86,6 @@ const PaymentSuccess = () => {
           </span>
           <span>{new Date(paymentInfo.paidAt).toLocaleString()}</span>
         </div>
-
       </div>
 
       <div className="text-center mt-6">
@@ -85,7 +97,7 @@ const PaymentSuccess = () => {
         </a>
       </div>
     </div>
-    );
+  );
 };
 
 export default PaymentSuccess;

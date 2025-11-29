@@ -21,6 +21,9 @@ const Navbar = () => {
       <li>
         <NavLink to={`/send-parcel`} className={`myNavLink`}>Send Parcel</NavLink>
       </li>
+      <li>
+        <NavLink to={`/rider`} className={`myNavLink`}>Be a Rider</NavLink>
+      </li>
       {
         user && 
       <li>

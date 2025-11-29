@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
 import { TbTruckDelivery } from 'react-icons/tb';
-import { FaRegCreditCard } from 'react-icons/fa6';
+import { FaMotorcycle, FaRegCreditCard } from 'react-icons/fa6';
 
 const DashboardLayout = () => {
     return (
@@ -48,6 +48,13 @@ const DashboardLayout = () => {
             
             <FaRegCreditCard className="my-1.5 inline-block size-4" />
             <span className="is-drawer-close:hidden">Payments History</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={`/dashboard/approve-riders`} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">
+            
+            <FaMotorcycle className="my-1.5 inline-block size-4" />
+            <span className="is-drawer-close:hidden">Approve Riders</span>
           </NavLink>
         </li>
 
