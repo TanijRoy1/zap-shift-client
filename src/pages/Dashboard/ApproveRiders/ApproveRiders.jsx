@@ -44,10 +44,10 @@ const ApproveRiders = () => {
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">
-            Approve Riders
+            Name
           </h1>
           <p className="text-sm text-gray-500">
-            Pending riders: <span className="font-medium">{riders.length}</span>
+            Riders: <span className="font-medium">{riders.length}</span>
           </p>
         </div>
       </header>
@@ -60,21 +60,19 @@ const ApproveRiders = () => {
                 #
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Name
+                Rider Info
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Contact
+                Contact / Email
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Region / District
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Email
-              </th>
+              
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Status
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
                 Actions
               </th>
             </tr>
@@ -87,14 +85,29 @@ const ApproveRiders = () => {
 
                 <td className="px-4 py-3 text-sm">
                   <div className="flex flex-col">
-                    <span className="font-medium text-gray-900">
+                    <span className="font-semibold text-accent text-lg">
                       {rider.name}
+                    </span>
+                    <span className="font-medium">
+                      NID: {rider.nid}
+                    </span>
+                    <span className="font-medium">
+                      Age: {rider.age}
                     </span>
                   </div>
                 </td>
 
-                <td className="px-4 py-3 text-sm text-gray-700">
-                  {rider.contact}
+                <td className="px-4 py-3 text-sm">
+                    <div className="flex flex-col">
+                    <span className="font-medium">
+                      {rider.contact}
+                    </span>
+                    <span className="font-medium">
+                      {rider.email}
+                    </span>
+                    
+                  </div>
+                   
                 </td>
 
                 <td className="px-4 py-3 text-sm text-gray-700">
@@ -102,9 +115,7 @@ const ApproveRiders = () => {
                   <div className="text-xs text-gray-400">{rider.district}</div>
                 </td>
 
-                <td className="px-4 py-3 text-sm text-gray-700">
-                  {rider.email}
-                </td>
+                
 
                 <td className="px-4 py-3 whitespace-nowrap">
                   <span
