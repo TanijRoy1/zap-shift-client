@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const AssignRiders = () => {
   const axiosSecure = useAxiosSecure();
   const riderModalRef = useRef();
-  const { data: parcels = [] } = useQuery({
+  const [selectedParcel, setSelectedParcel] = useState(null);
+
+  const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
     queryKey: ["parcels", "pending-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -16,8 +19,48 @@ const AssignRiders = () => {
     },
   });
 
-  const handleAssignRiders = (parcel) => {
+  const { data: riders = [] } = useQuery({
+    queryKey: [
+      "riders",
+      "available",
+      selectedParcel?.senderDistrict,
+      "approved",
+    ],
+    enabled: !!selectedParcel,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/riders?workStatus=available&status=approved&district=${selectedParcel?.senderDistrict}`
+      );
+      return res.data;
+    },
+  });
+  const openAssignRiderModal = (parcel) => {
+    setSelectedParcel(parcel);
     riderModalRef.current.showModal();
+  };
+
+  const handleAssignRider = (rider) => {
+    const riderAssignInfo = {
+      riderId: rider._id,
+      riderName: rider.name,
+      riderEmail: rider.email,
+      parcelId: selectedParcel._id,
+    };
+    axiosSecure
+      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          parcelsRefetch();
+          riderModalRef.current.close();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Rider has been assign`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
@@ -43,7 +86,6 @@ const AssignRiders = () => {
               <tr key={parcel.trackingId}>
                 <th>{index + 1}</th>
 
-                {/* Parcel Info */}
                 <td>
                   <div className="font-semibold text-lg">
                     {parcel.parcelName}
@@ -60,7 +102,6 @@ const AssignRiders = () => {
                     Cost: <span className="font-medium">৳{parcel.cost}</span>
                   </div>
 
-                  {/* Created At */}
                   <div className="text-sm text-gray-600">
                     Created:{" "}
                     <span className="font-medium">
@@ -70,7 +111,6 @@ const AssignRiders = () => {
                     </span>
                   </div>
 
-                  {/* Status Badges */}
                   <div className="mt-2 flex gap-2">
                     <span className="badge badge-info capitalize">
                       {parcel.deliveryStatus}
@@ -85,7 +125,6 @@ const AssignRiders = () => {
                   </div>
                 </td>
 
-                {/* Sender Info */}
                 <td>
                   <div className="font-medium">{parcel.senderName}</div>
                   <div className="text-sm">{parcel.senderEmail}</div>
@@ -95,7 +134,6 @@ const AssignRiders = () => {
                   </div>
                 </td>
 
-                {/* Receiver Info */}
                 <td>
                   <div className="font-medium">{parcel.receiverName}</div>
                   <div className="text-sm">{parcel.receiverEmail}</div>
@@ -105,13 +143,12 @@ const AssignRiders = () => {
                   </div>
                 </td>
 
-                {/* Assign Button */}
                 <td>
                   <button
-                    onClick={() => handleAssignRiders(parcel)}
+                    onClick={() => openAssignRiderModal(parcel)}
                     className="btn btn-primary btn-sm text-accent"
                   >
-                    Assign Rider
+                    Find Riders
                   </button>
                 </td>
               </tr>
@@ -120,14 +157,19 @@ const AssignRiders = () => {
         </table>
       </div>
 
-{/* Mobile cards for small screens */}
+      {/* Mobile cards for small screens */}
       <div className="md:hidden space-y-4">
         {parcels.map((p, i) => (
-          <article key={p.trackingId ?? i} className="card shadow-sm rounded-lg p-4 bg-base-100">
+          <article
+            key={p.trackingId ?? i}
+            className="card shadow-sm rounded-lg p-4 bg-base-100"
+          >
             <div className="flex items-start justify-between">
               <div>
                 <h2 className="text-lg font-semibold">{p.parcelName}</h2>
-                <div className="text-xs text-gray-500">Tracking: {p.trackingId}</div>
+                <div className="text-xs text-gray-500">
+                  Tracking: {p.trackingId}
+                </div>
               </div>
 
               <div className="text-right">
@@ -174,7 +216,13 @@ const AssignRiders = () => {
                   {p.deliveryStatus?.replace(/-/g, " ") ?? "unknown"}
                 </span>
 
-                <span className={p.paymentStatus === "paid" ? "badge badge-success" : "badge badge-outline"}>
+                <span
+                  className={
+                    p.paymentStatus === "paid"
+                      ? "badge badge-success"
+                      : "badge badge-outline"
+                  }
+                >
                   {p.paymentStatus ?? "unknown"}
                 </span>
 
@@ -195,11 +243,11 @@ const AssignRiders = () => {
 
               <div>
                 <button
-                  onClick={() => handleAssignRiders(p)}
-                  className="btn btn-primary btn-sm"
+                  onClick={() => openAssignRiderModal(p)}
+                  className="btn btn-primary btn-sm text-accent"
                   aria-label={`Assign rider to ${p.trackingId}`}
                 >
-                  Assign
+                  Find Riders
                 </button>
               </div>
             </div>
@@ -212,10 +260,45 @@ const AssignRiders = () => {
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
+          <h3 className="font-bold text-lg">
+            Available Riders: {riders.length}
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {riders.map((rider, index) => (
+                  <tr key={rider._id}>
+                    <td>{index + 1}</td>
+                    <td>{rider.name}</td>
+                    <td>
+                      <p>
+                        <span>{rider.contact}</span>
+                      </p>
+                      <p>
+                        <span>{rider.email}</span>
+                      </p>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleAssignRider(rider)}
+                        className="btn btn-primary text-accent"
+                      >
+                        Assign
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>
