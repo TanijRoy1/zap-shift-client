@@ -8,7 +8,7 @@ import KeyServices from './KeyServices/KeyServices';
 import BeAMerchant from './BeAMerchant/BeAMerchant';
 import FaqSection from './FaqSection/FaqSection';
 
-const reviewsPromise = fetch("./reviews.json").then(res => res.json());
+const reviewsPromise = fetch("/reviews.json").then(res => res.json());
 
 const Home = () => {
     return (

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState("");
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users", searchText],
     queryFn: async () => {

@@ -105,7 +105,10 @@ const ApproveRiders = () => {
               </th>
 
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Status
+                Application Status
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Work Status
               </th>
               <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
                 Actions
@@ -153,6 +156,7 @@ const ApproveRiders = () => {
                     {rider.status}
                   </span>
                 </td>
+                <td>{rider.workStatus}</td>
 
                 <td className="px-4 py-3 text-right text-sm">
                   <div className="flex justify-end gap-2">
