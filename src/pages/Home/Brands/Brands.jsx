@@ -24,25 +24,27 @@ const Brands = () => {
 
   return (
     <MyContainer className="py-10 pb-30">
-      <h1 className="sectionHeading mb-15">We've helped thousands of sales teams</h1>
+      <h1 className="sectionHeading mb-15">
+        We've helped thousands of sales teams
+      </h1>
       <Swiper
-      loop={true}
-      slidesPerView={4}
-      centeredSlides={true}
-      spaceBetween={30}
-      grabCursor={true}
-      autoplay={{
-        delay: 1000,
-        disableOnInteraction: false,
-      }}
-      modules={[Autoplay]}
-    >
-      {brandLogos.map((logo, index) => (
-        <SwiperSlide key={index}>
-          <img src={logo} alt={logo} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+        loop={true}
+        slidesPerView={4}
+        centeredSlides={true}
+        spaceBetween={30}
+        grabCursor={true}
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}
+      >
+        {brandLogos.map((logo, index) => (
+          <SwiperSlide key={index}>
+            <img src={logo} alt={logo} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </MyContainer>
   );
 };

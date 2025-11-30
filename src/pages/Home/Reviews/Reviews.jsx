@@ -5,8 +5,6 @@ import "swiper/css";
 import ReviewCard from "./ReviewCard/ReviewCard";
 import MyContainer from "../../../components/MyContainer";
 
-
-
 const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
   return (
@@ -14,7 +12,9 @@ const Reviews = ({ reviewsPromise }) => {
       <div className="text-center">
         <h1 className="sectionHeading mb-5">What our customers are sayings</h1>
         <p className="text-accent-content max-w-2xl mx-auto mb-10">
-          Enhance posture, mobility, and well-being effortlessly with Posture Pro. Achieve proper alignment, reduce pain, and strengthen your body with ease!
+          Enhance posture, mobility, and well-being effortlessly with Posture
+          Pro. Achieve proper alignment, reduce pain, and strengthen your body
+          with ease!
         </p>
       </div>
 
@@ -33,11 +33,11 @@ const Reviews = ({ reviewsPromise }) => {
             slideShadows: true,
           }}
           autoplay={{
-          delay: 1100,
-          disableOnInteraction: false,
-        }}
+            delay: 1100,
+            disableOnInteraction: false,
+          }}
           pagination={true}
-          modules={[EffectCoverflow,Autoplay, Pagination]}
+          modules={[EffectCoverflow, Autoplay, Pagination]}
           className="mySwiper"
         >
           {reviews.map((review) => (
@@ -46,9 +46,6 @@ const Reviews = ({ reviewsPromise }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-
-
-  
       </div>
     </MyContainer>
   );

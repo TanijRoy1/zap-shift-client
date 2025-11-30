@@ -10,36 +10,49 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={`/`} className={`myNavLink`}>Home</NavLink>
+        <NavLink to={`/`} className={`myNavLink`}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/coverage`} className={`myNavLink`}>Coverage</NavLink>
+        <NavLink to={`/coverage`} className={`myNavLink`}>
+          Coverage
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/aboutUs`} className={`myNavLink`}>About Us</NavLink>
+        <NavLink to={`/aboutUs`} className={`myNavLink`}>
+          About Us
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/send-parcel`} className={`myNavLink`}>Send Parcel</NavLink>
+        <NavLink to={`/send-parcel`} className={`myNavLink`}>
+          Send Parcel
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/rider`} className={`myNavLink`}>Be a Rider</NavLink>
+        <NavLink to={`/rider`} className={`myNavLink`}>
+          Be a Rider
+        </NavLink>
       </li>
-      {
-        user && 
-      <li>
-        <NavLink to={`/dashboard/my-parcels`} className={`myNavLink`}>Dashboard</NavLink>
-      </li>
-      }
+      {user && (
+        <li>
+          <NavLink to={`/dashboard/my-parcels`} className={`myNavLink`}>
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
   const handleSignOutUser = () => {
-    signOutUser().then(()=>{
-      toast.success("Sign Out Successfully");
-    }).catch(err => {
-      console.log(err);
-    })
-  }
+    signOutUser()
+      .then(() => {
+        toast.success("Sign Out Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="bg-base-300">
       <MyContainer>
@@ -81,21 +94,30 @@ const Navbar = () => {
           </div>
           <div className="navbar-end gap-2">
             {user ? (
-            <div className="flex items-center gap-1.5">
-              <img
-                src={user.photoURL}
-                className="w-10 h-10 border-2 border-accent object-cover rounded-full"
-                alt=""
-              />
-              <button onClick={handleSignOutUser} className="btn btn-primary btn-outline">Sign Out</button>
-            </div>
-              
+              <div className="flex items-center gap-1.5">
+                <img
+                  src={user.photoURL}
+                  className="w-10 h-10 border-2 border-accent object-cover rounded-full"
+                  alt=""
+                />
+                <button
+                  onClick={handleSignOutUser}
+                  className="btn btn-primary btn-outline"
+                >
+                  Sign Out
+                </button>
+              </div>
             ) : (
-              <Link to={`/login`} className="btn btn-primary btn-outline text-accent">
+              <Link
+                to={`/login`}
+                className="btn btn-primary btn-outline text-accent"
+              >
                 Sign In
               </Link>
             )}
-            <Link to={`/rider`} className="btn btn-primary text-accent">Be a Rider</Link>
+            <Link to={`/rider`} className="btn btn-primary text-accent">
+              Be a Rider
+            </Link>
           </div>
         </div>
       </MyContainer>

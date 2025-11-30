@@ -25,22 +25,35 @@ const Footer = () => {
             "Blog",
             "Contact",
           ].map((anchor, index) => (
-            <Link to={`/${anchor}`} key={index} className="font-semibold hover:text-blue-500 hover:underline">
+            <Link
+              to={`/${anchor}`}
+              key={index}
+              className="font-semibold hover:text-blue-500 hover:underline"
+            >
               {anchor}
             </Link>
           ))}
         </div>
         <div className="flex text-2xl items-center gap-6">
-          <a href="#" className="bg-[#0575B3] rounded-full text-white p-1.5 text-sm">
+          <a
+            href="#"
+            className="bg-[#0575B3] rounded-full text-white p-1.5 text-sm"
+          >
             <FaLinkedinIn />
           </a>
-          <a href="#" className="bg-[#FFFFFF] rounded-full text-black font-bold p-1.5 text-sm">
+          <a
+            href="#"
+            className="bg-[#FFFFFF] rounded-full text-black font-bold p-1.5 text-sm"
+          >
             <FaXTwitter />
           </a>
           <a href="#" className="text-[#006AFF] bg-white rounded-full">
             <FaFacebook />
           </a>
-          <a href="#" className="bg-[#FF0000] rounded-full text-white p-1.5 text-sm">
+          <a
+            href="#"
+            className="bg-[#FF0000] rounded-full text-white p-1.5 text-sm"
+          >
             <IoLogoYoutube />
           </a>
         </div>
