@@ -17,20 +17,32 @@ const ApproveRiders = () => {
     },
   });
   const updateStatus = (rider, status) => {
-    axiosSecure
-      .patch(`/riders/${rider._id}`, { status, email: rider.email })
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          refetch();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: `Rider status is set to ${status}`,
-            showConfirmButton: false,
-            timer: 2500,
+    Swal.fire({
+      title: "Confirm Action",
+      text: `Are you sure you want to update this rider's status to "${status}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, proceed",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/riders/${rider._id}`, { status, email: rider.email })
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Rider status has been updated to ${status}`,
+                showConfirmButton: false,
+                timer: 2500,
+              });
+            }
           });
-        }
-      });
+      }
+    });
   };
   const handleApprovedRider = (rider) => {
     updateStatus(rider, "approved");
@@ -38,14 +50,37 @@ const ApproveRiders = () => {
   const handleRejectRider = (rider) => {
     updateStatus(rider, "rejected");
   };
-  const handleDeleteRider = (rider) => {};
+  const handleDeleteRider = (rider) => {
+    Swal.fire({
+      title: "Confirm Deletion",
+      text: "Are you sure you want to delete this rider application? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/riders/${rider._id}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "The rider application has been successfully deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
+  
   return (
     <div className="max-w-6xl mx-auto p-4">
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Name
-          </h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Name</h1>
           <p className="text-sm text-gray-500">
             Riders: <span className="font-medium">{riders.length}</span>
           </p>
@@ -60,7 +95,7 @@ const ApproveRiders = () => {
                 #
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Rider Info
+                Name
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Contact / Email
@@ -68,7 +103,7 @@ const ApproveRiders = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Region / District
               </th>
-              
+
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Status
               </th>
@@ -88,34 +123,22 @@ const ApproveRiders = () => {
                     <span className="font-semibold text-accent text-lg">
                       {rider.name}
                     </span>
-                    <span className="font-medium">
-                      NID: {rider.nid}
-                    </span>
-                    <span className="font-medium">
-                      Age: {rider.age}
-                    </span>
+                    <span className="font-medium">NID: {rider.nid}</span>
+                    <span className="font-medium">Age: {rider.age}</span>
                   </div>
                 </td>
 
                 <td className="px-4 py-3 text-sm">
-                    <div className="flex flex-col">
-                    <span className="font-medium">
-                      {rider.contact}
-                    </span>
-                    <span className="font-medium">
-                      {rider.email}
-                    </span>
-                    
+                  <div className="flex flex-col">
+                    <span className="font-medium">{rider.contact}</span>
+                    <span className="font-medium">{rider.email}</span>
                   </div>
-                   
                 </td>
 
                 <td className="px-4 py-3 text-sm text-gray-700">
                   <div>{rider.region}</div>
                   <div className="text-xs text-gray-400">{rider.district}</div>
                 </td>
-
-                
 
                 <td className="px-4 py-3 whitespace-nowrap">
                   <span

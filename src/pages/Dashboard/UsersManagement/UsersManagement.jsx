@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FiShieldOff } from "react-icons/fi";
@@ -7,10 +7,11 @@ import Swal from "sweetalert2";
 
 const UsersManagement = () => {
   const axiosSecure = useAxiosSecure();
+  const [searchText, setSearchText] = useState();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
       return res.data;
     },
   });
@@ -50,23 +51,56 @@ const UsersManagement = () => {
     <div className="max-w-6xl mx-auto p-4">
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Users Management</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">
+            Users Management
+          </h1>
           <p className="text-sm text-gray-500">
             Total users: <span className="font-medium">{users.length}</span>
           </p>
         </div>
       </header>
+      <div className="flex items-center justify-between mb-6">
+        <label className="input">
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input type="search" onChange={(e)=>setSearchText(e.target.value)} required placeholder="Search" />
+        </label>
+        <div className="btn btn-primary text-accent">Pagination</div>
+      </div>
 
-      
       <div className="hidden md:block bg-white shadow rounded-lg overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 table-auto">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
-              <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Admin action</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                #
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                User
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Email
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Role
+              </th>
+              <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                Admin action
+              </th>
             </tr>
           </thead>
 
@@ -80,20 +114,26 @@ const UsersManagement = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12 overflow-hidden bg-gray-100">
                         <img
-                          src={user.photoURL || "https://via.placeholder.com/96"}
+                          src={
+                            user.photoURL || "https://via.placeholder.com/96"
+                          }
                           alt={user.displayName || "User avatar"}
                           className="object-cover h-12 w-12"
                         />
                       </div>
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{user.displayName || "No name"}</div>
+                      <div className="font-medium text-gray-900">
+                        {user.displayName || "No name"}
+                      </div>
                       <div className="text-xs text-gray-400">{user._id}</div>
                     </div>
                   </div>
                 </td>
 
-                <td className="px-4 py-3 text-sm text-gray-700">{user.email || "-"}</td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {user.email || "-"}
+                </td>
 
                 <td className="px-4 py-3 text-sm">
                   <span
@@ -139,7 +179,10 @@ const UsersManagement = () => {
       {/* Mobile cards */}
       <div className="md:hidden space-y-4">
         {users.map((user, idx) => (
-          <article key={user._id ?? idx} className="bg-white shadow rounded-lg p-4">
+          <article
+            key={user._id ?? idx}
+            className="bg-white shadow rounded-lg p-4"
+          >
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0">
                 <div className="mask mask-squircle h-12 w-12 overflow-hidden bg-gray-100">
@@ -154,18 +197,22 @@ const UsersManagement = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900">{user.displayName || "No name"}</h3>
+                    <h3 className="text-sm font-semibold text-gray-900">
+                      {user.displayName || "No name"}
+                    </h3>
                     <p className="text-xs text-gray-500">{user.email}</p>
                   </div>
 
                   <div className="text-right">
-                    <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
-                      user.role === "admin"
-                        ? "bg-green-100 text-green-800"
-                        : user.role === "rider"
-                        ? "bg-indigo-100 text-indigo-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}>
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded font-semibold ${
+                        user.role === "admin"
+                          ? "bg-green-100 text-green-800"
+                          : user.role === "rider"
+                          ? "bg-indigo-100 text-indigo-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
                       {user.role || "user"}
                     </span>
                   </div>
