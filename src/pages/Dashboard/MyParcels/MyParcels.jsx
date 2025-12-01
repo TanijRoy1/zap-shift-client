@@ -45,15 +45,16 @@ const MyParcels = () => {
   };
 
   const handlePayment = async (parcel) => {
-        const paymentInfo = {
-            cost : parcel.cost,
-            senderEmail: parcel.senderEmail,
-            parcelId: parcel._id,
-            parcelName: parcel.parcelName
-        }
-        const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
-        window.location.assign(res.data.url);
-    }
+    const paymentInfo = {
+      cost: parcel.cost,
+      senderEmail: parcel.senderEmail,
+      parcelId: parcel._id,
+      parcelName: parcel.parcelName,
+      trackingId: parcel.trackingId,
+    };
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    window.location.assign(res.data.url);
+  };
 
   return (
     <div>
@@ -72,6 +73,7 @@ const MyParcels = () => {
               <th>Cost</th>
               <th>Payment</th>
               <th>Delivery Status</th>
+              <th>Tracking ID</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -87,12 +89,20 @@ const MyParcels = () => {
                       Paid
                     </span>
                   ) : (
-                    <button onClick={()=>handlePayment(parcel)}  className="btn btn-primary btn-sm text-accent">
+                    <button
+                      onClick={() => handlePayment(parcel)}
+                      className="btn btn-primary btn-sm text-accent"
+                    >
                       Pay
                     </button>
                   )}
                 </td>
                 <td>{parcel.deliveryStatus}</td>
+                <td>
+                  <Link to={`/parcel-track/${parcel.trackingId}`}>
+                    {parcel.trackingId}
+                  </Link>
+                </td>
                 <td>
                   <button className="btn btn-square hover:bg-primary">
                     <FaMagnifyingGlass />
