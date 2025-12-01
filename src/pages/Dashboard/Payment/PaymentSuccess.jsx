@@ -48,7 +48,7 @@ const PaymentSuccess = () => {
             <Tag size={18} /> Amount
           </span>
           <span className="font-semibold">
-            ${paymentInfo.amount / 100} {paymentInfo.currency}
+            ${paymentInfo.amount} {paymentInfo.currency}
           </span>
         </div>
 
@@ -90,10 +90,10 @@ const PaymentSuccess = () => {
 
       <div className="text-center mt-6">
         <a
-          href="/track"
+          href="/dashboard/payments-history"
           className="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700"
         >
-          Track Your Parcel
+          View Payment History
         </a>
       </div>
     </div>

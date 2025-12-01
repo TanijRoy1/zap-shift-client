@@ -5,6 +5,7 @@ import { FaMotorcycle, FaRegCreditCard, FaUsers } from "react-icons/fa6";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
 import { FaTasks } from "react-icons/fa";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -115,6 +116,18 @@ const DashboardLayout = () => {
                       <FaTasks className="my-1.5 inline-block size-4" />
                       <span className="is-drawer-close:hidden">
                         Assigned Deliveries
+                      </span>
+                    </NavLink>
+                  </li>
+                <li>
+                    <NavLink
+                      to={`/dashboard/completed-deliveries`}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Completed Deliveries"
+                    >
+                      <IoCheckmarkDoneCircle className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Completed Deliveries
                       </span>
                     </NavLink>
                   </li>
