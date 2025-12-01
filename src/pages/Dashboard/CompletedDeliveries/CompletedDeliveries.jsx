@@ -21,9 +21,9 @@ const CompletedDeliveries = () => {
 
       const calculatePayout = parcel => {
         if(parcel.senderDistrict === parcel.receiverDistrict){
-            return parcel.cost * 0.8;
+            return Math.floor(parcel.cost * 0.8);
         } else{
-            return parcel.cost * 0.6;
+            return Math.floor(parcel.cost * 0.6);
         }
       }
 
