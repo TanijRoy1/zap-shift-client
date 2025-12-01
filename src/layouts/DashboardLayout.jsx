@@ -4,6 +4,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaMotorcycle, FaRegCreditCard, FaUsers } from "react-icons/fa6";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
+import { FaTasks } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -101,6 +102,27 @@ const DashboardLayout = () => {
                   </span>
                 </NavLink>
               </li>
+              
+              {/* rider only links */}
+              {
+                role === "rider" && <>
+                <li>
+                    <NavLink
+                      to={`/dashboard/assigned-deliveries`}
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assigned Deliveries"
+                    >
+                      <FaTasks className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Assigned Deliveries
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              }
+
+
+              {/* admin only links */}
               {role === "admin" && (
                 <>
                   <li>
