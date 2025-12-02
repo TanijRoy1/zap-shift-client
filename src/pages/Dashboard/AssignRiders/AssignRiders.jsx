@@ -10,16 +10,16 @@ const AssignRiders = () => {
   const [selectedParcel, setSelectedParcel] = useState(null);
 
   const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
-    queryKey: ["parcels", "pending-pickup"],
+    queryKey: ["parcels", "parcel_paid"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        "/parcels?deliveryStatus=pending-pickup"
+        "/parcels?deliveryStatus=parcel_paid"
       );
       return res.data;
     },
   });
 
-  const { data: riders = [] } = useQuery({
+  const { data: riders = [], refetch: riderRefetch } = useQuery({
     queryKey: [
       "riders",
       "available",
@@ -52,6 +52,7 @@ const AssignRiders = () => {
       .then((res) => {
         if (res.data.modifiedCount) {
           parcelsRefetch();
+          riderRefetch();
           riderModalRef.current.close();
           Swal.fire({
             position: "center",

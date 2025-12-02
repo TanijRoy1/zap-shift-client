@@ -32,7 +32,7 @@ const Navbar = () => {
       
       {user && (
         <li>
-          <NavLink to={`/dashboard/my-parcels`} className={`myNavLink`}>
+          <NavLink to={`/dashboard`} className={`myNavLink`}>
             Dashboard
           </NavLink>
         </li>

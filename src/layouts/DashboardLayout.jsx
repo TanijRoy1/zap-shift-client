@@ -6,6 +6,7 @@ import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
 import { FaTasks } from "react-icons/fa";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import logoImg from "../assets/logo.png";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -57,14 +58,25 @@ const DashboardLayout = () => {
             {/* Sidebar content here */}
 
             <ul className="menu w-full grow">
-              {/* List item */}
               <li>
                 <NavLink
                   to={`/`}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right hover:bg-base-200"
+                  data-tip="Zap Shift"
+                >
+                  <img src={logoImg} className="my-1.5 " alt="" />
+
+                  <span className="is-drawer-close:hidden text-2xl font-black text-accent transform -translate-x-5 translate-y-3">
+                    ZapShift
+                  </span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={`/dashboard`}
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Homepage"
                 >
-                  {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -103,11 +115,11 @@ const DashboardLayout = () => {
                   </span>
                 </NavLink>
               </li>
-              
+
               {/* rider only links */}
-              {
-                role === "rider" && <>
-                <li>
+              {role === "rider" && (
+                <>
+                  <li>
                     <NavLink
                       to={`/dashboard/assigned-deliveries`}
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -119,7 +131,7 @@ const DashboardLayout = () => {
                       </span>
                     </NavLink>
                   </li>
-                <li>
+                  <li>
                     <NavLink
                       to={`/dashboard/completed-deliveries`}
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -132,8 +144,7 @@ const DashboardLayout = () => {
                     </NavLink>
                   </li>
                 </>
-              }
-
+              )}
 
               {/* admin only links */}
               {role === "admin" && (

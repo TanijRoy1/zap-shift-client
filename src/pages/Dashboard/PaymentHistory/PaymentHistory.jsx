@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FiCopy, FiExternalLink } from "react-icons/fi";
+import { Link } from "react-router";
 
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString() : "-");
 
@@ -39,23 +40,17 @@ const PaymentHistory = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Parcel
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Amount
-              </th>
+              
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Customer
               </th>
+              
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Transaction ID
+                Payment Info
               </th>
+              
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Status
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Paid At
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Tracking
+                Transaction ID/Tracking
               </th>
               <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                 Actions
@@ -77,38 +72,33 @@ const PaymentHistory = () => {
                   </div>
                 </td>
 
-                <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                  {p.currency?.toUpperCase() === "USD"
-                    ? `$${p.amount}`
-                    : `${p.amount} ${p.currency}`}
-                </td>
 
                 <td className="px-4 py-3 text-sm text-gray-700">
                   {p.customerEmail}
                 </td>
 
-                <td className="px-4 py-3 text-sm font-mono text-gray-700 truncate max-w-xs">
-                  {p.transactionId}
-                </td>
 
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                <td className="px-4 py-3 flex flex-col">
+                  <p className=" py-3 text-sm font-medium text-gray-900">Cost: <span>{p.currency?.toUpperCase() === "USD"
+                    ? `$${p.amount}`
+                    : `${p.amount} ${p.currency}`}</span></p>
+                  <p>Status: <span
+                    className={` py-0.5 rounded-full text-sm px-2.5 font-bold capitalize ${
                       p.paymentStatus === "paid"
                         ? "bg-green-100 text-green-800"
                         : "bg-yellow-100 text-yellow-800"
                     }`}
                   >
                     {p.paymentStatus}
-                  </span>
+                  </span></p>
+                  <p className="py-3 text-sm text-gray-600">Paid At: <span>{fmtDate(p.paidAt)}</span></p>
                 </td>
 
-                <td className="px-4 py-3 text-sm text-gray-600">
-                  {fmtDate(p.paidAt)}
-                </td>
+        
 
-                <td className="px-4 py-3 text-sm font-mono text-gray-700">
-                  {p.trackingId}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  <p className="font-semibold">Transaction ID: <span className="font-normal">{p.transactionId}</span></p>
+                  <p className="font-semibold">Tracking ID: <span className="font-normal">{p.trackingId}</span></p>
                 </td>
 
                 <td className="px-4 py-3 text-right">
@@ -123,15 +113,13 @@ const PaymentHistory = () => {
                       <span className="hidden sm:inline">Copy</span>
                     </button>
 
-                    <a
-                      href={`/track/${p.trackingId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to={`/parcel-track/${p.trackingId}`}
                       className="px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"
                     >
                       <FiExternalLink className="w-4 h-4" />
                       <span className="hidden sm:inline">Track</span>
-                    </a>
+                    </Link>
                   </div>
                 </td>
               </tr>
