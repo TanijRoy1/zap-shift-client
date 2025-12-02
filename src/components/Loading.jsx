@@ -1,12 +1,27 @@
-import React from 'react';
-import { SpinnerRoundOutlined } from 'spinners-react';
+import React from "react";
+// import { SpinnerRoundOutlined } from 'spinners-react';
+import loadingAnimationData from "../assets/json/loading.json";
+import Lottie from "react-lottie";
 
 const Loading = () => {
-    return (
-        <div className='h-200 flex items-center justify-center'>
-            <SpinnerRoundOutlined size={50} thickness={100} speed={100} color="rgba(57, 172, 79, 1)" />
-        </div>
-    );
+  return (
+    <div className="h-100 flex items-center justify-center">
+      <Lottie
+        options={{
+          loop: true,
+          autoplay: true,
+          animationData: loadingAnimationData,
+          rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+          },
+        }}
+        height={300}
+        width={300}
+        isStopped={false}
+        isPaused={false}
+      />
+    </div>
+  );
 };
 
 export default Loading;

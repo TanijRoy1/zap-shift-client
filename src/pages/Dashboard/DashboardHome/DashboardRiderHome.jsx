@@ -27,7 +27,7 @@ const DashboardRiderHome = () => {
         tasks.
       </p>
 
-      <div className="flex mt-10 items-center justify-center gap-8">
+      <div className="flex flex-wrap mt-10 items-center justify-center gap-8">
         {deliveriesPerDay.map((delivery) => (
           <div
             key={delivery._id}

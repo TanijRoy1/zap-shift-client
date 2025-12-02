@@ -23,6 +23,8 @@ import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDe
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import ParcelTrack from "../pages/ParcelTrack/ParcelTrack";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 
 
@@ -30,6 +32,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         Component: MainLayout,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 index: true,
@@ -40,6 +43,7 @@ const router = createBrowserRouter([
                 Component: Coverage,
                 loader: () => fetch("./serviceCenters.json").then(res => res.json()),
             },
+            
             {
                 path: "send-parcel",
                 element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>,
@@ -53,7 +57,11 @@ const router = createBrowserRouter([
             {
                 path: "parcel-track/:trackingId",
                 Component: ParcelTrack
-            }
+            },
+            {
+                path: "about-us",
+                Component: AboutUs
+            },
         ]
     },
     {
@@ -119,6 +127,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><UsersManagement></UsersManagement></AdminRoute>
             },
         ]
+    },
+    {
+        path: "*",
+        Component: ErrorPage
     }
 ])
 

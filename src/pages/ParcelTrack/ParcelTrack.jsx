@@ -19,8 +19,8 @@ const ParcelTrack = () => {
   return (
     <div className="bg-base-300 py-10">
       <MyContainer className={`bg-base-100 p-8 rounded-2xl shadow-2xl`}>
-        <h1 className="text-accent text-2xl font-bold">Trackings ID {trackingId}</h1>
-        <p>Tracking so far {trackings.length}</p>
+        <h1 className="text-accent text-2xl font-bold">Trackings ID: {trackingId}</h1>
+        <p>Tracks so far {trackings.length}</p>
 
         <ul className="timeline timeline-vertical">
           {trackings.map((log) => (

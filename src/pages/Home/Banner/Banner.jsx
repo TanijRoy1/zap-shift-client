@@ -6,6 +6,7 @@ import bannerImg2 from "../../../assets/banner/banner2.png";
 import bannerImg3 from "../../../assets/banner/banner3.png";
 import MyContainer from "../../../components/MyContainer";
 import { IoArrowForwardCircle } from "react-icons/io5";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -13,32 +14,32 @@ const Banner = () => {
       <Carousel autoPlay={true} infiniteLoop={true}>
         <div className="relative">
           <img src={bannerImg1} />
-          <div className="absolute left-21.5 bottom-18 flex gap-3">
+          <div className="absolute lg:left-21.5 lg:bottom-18 bottom-1 flex gap-3">
             <div className="flex items-center">
-              <button className="btn btn-primary text-secondary rounded-full">Track Your Parcel</button>
+              <Link to={`/dashboard/my-parcels`} className="btn btn-primary text-secondary rounded-full">Track Your Parcel</Link>
               <IoArrowForwardCircle className="text-4xl transform -rotate-45 cursor-pointer" />
             </div>
-            <button className="btn btn-outline rounded-full">Be A Rider</button>
+            <Link to={`/rider`} className="btn btn-outline rounded-full">Be A Rider</Link>
           </div>
         </div>
         <div className="relative">
           <img src={bannerImg2} />
-          <div className="absolute left-21.5 bottom-18 flex gap-3">
+          <div className="absolute lg:left-21.5 lg:bottom-18 bottom-1 flex gap-3">
             <div className="flex items-center">
-              <button className="btn btn-primary text-secondary rounded-full">Track Your Parcel</button>
+              <Link to={`/dashboard/my-parcels`} className="btn btn-primary text-secondary rounded-full">Track Your Parcel</Link>
               <IoArrowForwardCircle className="text-4xl transform -rotate-45 cursor-pointer" />
             </div>
-            <button className="btn btn-outline rounded-full">Be A Rider</button>
+            <Link to={`/rider`} className="btn btn-outline rounded-full">Be A Rider</Link>
           </div>
         </div>
         <div className="relative">
           <img src={bannerImg3} />
-          <div className="absolute left-21.5 bottom-18 flex gap-3">
+          <div className="absolute lg:left-21.5 lg:bottom-18 bottom-1 flex gap-3">
             <div className="flex items-center">
-              <button className="btn btn-primary text-secondary rounded-full">Track Your Parcel</button>
+              <Link to={`/dashboard/my-parcels`} className="btn btn-primary text-secondary rounded-full">Track Your Parcel</Link>
               <IoArrowForwardCircle className="text-4xl transform -rotate-45 cursor-pointer" />
             </div>
-            <button className="btn btn-outline rounded-full">Be A Rider</button>
+            <Link to={`/rider`} className="btn btn-outline rounded-full">Be A Rider</Link>
           </div>
         </div>
       </Carousel>

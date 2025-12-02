@@ -11,15 +11,15 @@ const ReviewCard = ({ review }) => {
       </div>
       <p className="py-4 border-b border-dashed my-6">{testimonial}</p>
 
-      <div className="flex items-center gap-4">
+      <div className="flex md:flex-row flex-col items-center gap-4">
         <img
           src={user_photoURL}
           alt=""
           className="rounded-full w-15 object-cover"
         />
         <div>
-          <p className="text-xl font-semibold">{userName}</p>
-          <p>{user_email}</p>
+          <p className="lg:text-xl text-sm font-semibold">{userName}</p>
+          <p className="lg:text-sm text-xs lg:block hidden">{user_email}</p>
         </div>
       </div>
     </div>

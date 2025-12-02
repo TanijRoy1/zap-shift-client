@@ -34,14 +34,14 @@ const KeyServices = () => {
         {keyServices.map((service) => (
           <div
             key={service.id}
-            className="flex items-center gap-2 bg-base-100 border border-base-300 rounded-md shadow"
+            className="flex lg:flex-row flex-col items-center gap-2 bg-base-100 border border-base-300 rounded-md shadow"
           >
             <img
               src={service.image}
               alt={service.title}
               className="rounded-md p-4"
             />
-            <div className="p-6 border-l border-dashed flex flex-col gap-5">
+            <div className="p-6 lg:border-l border-t border-dashed flex flex-col gap-5">
               <h1 className="text-xl font-semibold text-accent">
                 {service.title}
               </h1>

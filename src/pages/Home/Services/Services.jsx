@@ -49,7 +49,7 @@ const services = [
 
 const Services = () => {
   return (
-    <MyContainer className={`bg-secondary py-10 px-8 rounded-2xl`}>
+    <MyContainer className={`bg-secondary py-10 md:px-8 px-4 rounded-2xl`}>
       <h1 className="text-3xl font-bold text-center mb-5 text-base-100">
         Our Services
       </h1>

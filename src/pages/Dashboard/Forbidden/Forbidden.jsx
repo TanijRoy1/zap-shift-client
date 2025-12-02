@@ -1,5 +1,5 @@
 import React from "react";
-import animationData from "../../../assets/json/forbidden.json";
+import forbiddedAnimationData from "../../../assets/json/forbidden.json";
 import Lottie from "react-lottie";
 import { Link } from "react-router";
 
@@ -11,7 +11,7 @@ const Forbidden = () => {
           options={{
             loop: true,
             autoplay: true,
-            animationData: animationData,
+            animationData: forbiddedAnimationData,
             rendererSettings: {
               preserveAspectRatio: "xMidYMid slice",
             },
