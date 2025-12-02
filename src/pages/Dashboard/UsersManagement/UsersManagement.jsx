@@ -17,31 +17,55 @@ const UsersManagement = () => {
   });
 
   const handleMakeAdmin = (user) => {
-    const roleInfo = { role: "admin" };
-    axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `${user.displayName} marked as an Admin`,
-          showConfirmButton: false,
-          timer: 2000,
+    Swal.fire({
+      title: "Confirm Action",
+      text: `Are you sure you want to make "${user.displayName}" an Admin?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, proceed",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const roleInfo = { role: "admin" };
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
+          if (res.data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${user.displayName} is now an Admin`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
         });
       }
     });
   };
   const handleRemoveAdmin = (user) => {
-    const roleInfo = { role: "user" };
-    axiosSecure.patch(`/users/${user._id}`, roleInfo).then((res) => {
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `${user.displayName} marked as an User`,
-          showConfirmButton: false,
-          timer: 2000,
+    Swal.fire({
+      title: "Confirm Action",
+      text: `Are you sure you want to remove Admin access for "${user.displayName}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const roleInfo = { role: "user" };
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
+          if (res.data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${user.displayName} is now a User`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
         });
       }
     });
@@ -77,7 +101,12 @@ const UsersManagement = () => {
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" onChange={(e)=>setSearchText(e.target.value)} required placeholder="Search" />
+          <input
+            type="search"
+            onChange={(e) => setSearchText(e.target.value)}
+            required
+            placeholder="Search"
+          />
         </label>
         <div className="btn btn-primary text-accent">Pagination</div>
       </div>

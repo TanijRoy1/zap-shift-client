@@ -72,7 +72,7 @@ const DashboardAdminHome = () => {
         ))}
       </div>
 
-      <div className="w-full h-[400px] flex">
+      <div className="w-full h-[400px] flex md:flex-row flex-col">
         <PieChart
           style={{
             width: "100%",
@@ -97,14 +97,14 @@ const DashboardAdminHome = () => {
           <Legend></Legend>
           <Tooltip></Tooltip>
         </PieChart>
-        <div className="grid grid-cols-2 gap-5 mt-10 ml-13">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-5 mt-10 md:ml-13">
           {statusArr.map((status, i) => (
             <div
               key={i}
-              className="rounded-2xl pl-4 pr-20 flex items-center bg-accent text-base-300 shadow-xl"
+              className="rounded-2xl pl-4 pr-20 py-5 flex items-center bg-accent text-base-300 shadow-xl"
             >
               <div className="flex gap-5 items-center">
-                <div className="flex justify-center items-center text-5xl text-green-600">
+                <div className="flex justify-center items-center md:text-5xl text-3xl text-green-600">
                   {icons[status]}
                 </div>
                 <div>

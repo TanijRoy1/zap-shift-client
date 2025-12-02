@@ -1,6 +1,7 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
 import { Navigate, useLocation } from "react-router";
+import Loading from "../components/Loading";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -8,11 +9,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return (
-      <h1 className="text-center py-30">
-        <span className="loading loading-bars loading-xl"></span>
-      </h1>
-    );
+    return <Loading></Loading>;
   }
   if (user) {
     return children;

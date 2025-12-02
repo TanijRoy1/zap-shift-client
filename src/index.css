@@ -28,3 +28,6 @@ body{
 .myNavLink.active {
   @apply bg-[#CAEB66] text-accent
 }
+.dashboardNavLink.active{
+  @apply bg-[#CAEB66] text-accent
+}

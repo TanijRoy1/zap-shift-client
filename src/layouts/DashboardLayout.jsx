@@ -96,7 +96,7 @@ const DashboardLayout = () => {
               <li>
                 <NavLink
                   to={`/dashboard/my-parcels`}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                   data-tip="My Parcels"
                 >
                   <TbTruckDelivery className="my-1.5 inline-block size-4" />
@@ -106,7 +106,7 @@ const DashboardLayout = () => {
               <li>
                 <NavLink
                   to={`/dashboard/payments-history`}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                   data-tip="Payments History"
                 >
                   <FaRegCreditCard className="my-1.5 inline-block size-4" />
@@ -122,7 +122,7 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       to={`/dashboard/assigned-deliveries`}
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                       data-tip="Assigned Deliveries"
                     >
                       <FaTasks className="my-1.5 inline-block size-4" />
@@ -134,7 +134,7 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       to={`/dashboard/completed-deliveries`}
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                       data-tip="Completed Deliveries"
                     >
                       <IoCheckmarkDoneCircle className="my-1.5 inline-block size-4" />
@@ -152,7 +152,7 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       to={`/dashboard/approve-riders`}
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                       data-tip="Approve Riders"
                     >
                       <FaMotorcycle className="my-1.5 inline-block size-4" />
@@ -164,7 +164,7 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       to={`/dashboard/assign-riders`}
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                       data-tip="Assign Riders"
                     >
                       <RiEBikeFill className="my-1.5 inline-block size-4" />
@@ -176,7 +176,7 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       to={`/dashboard/users-management`}
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right dashboardNavLink"
                       data-tip="Users Management"
                     >
                       <FaUsers className="my-1.5 inline-block size-4" />
@@ -188,31 +188,7 @@ const DashboardLayout = () => {
                 </>
               )}
 
-              {/* List item */}
-              <li>
-                <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Settings"
-                >
-                  {/* Settings icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">Settings</span>
-                </button>
-              </li>
+              
             </ul>
           </div>
         </div>

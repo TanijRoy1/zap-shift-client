@@ -14,22 +14,13 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink to={`/coverage`} className={`myNavLink`}>
-          Coverage
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={`/aboutUs`} className={`myNavLink`}>
-          About Us
-        </NavLink>
-      </li>
+
       <li>
         <NavLink to={`/send-parcel`} className={`myNavLink`}>
           Send Parcel
         </NavLink>
       </li>
-      
+
       {user && (
         <li>
           <NavLink to={`/dashboard`} className={`myNavLink`}>
@@ -37,6 +28,17 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+
+      <li>
+        <NavLink to={`/coverage`} className={`myNavLink`}>
+          Coverage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={`/about-us`} className={`myNavLink`}>
+          About Us
+        </NavLink>
+      </li>
     </>
   );
 
@@ -81,6 +83,26 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 {links}
+                <div className="flex lg:hidden flex-col gap-2 mt-3">
+                  {user ? (
+                    <button
+                      onClick={handleSignOutUser}
+                      className="btn btn-primary btn-outline"
+                    >
+                      Sign Out
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/login`}
+                      className="btn btn-primary btn-outline text-accent"
+                    >
+                      Sign In
+                    </Link>
+                  )}
+                  <Link to={`/rider`} className="btn btn-primary text-accent">
+                    Be a Rider
+                  </Link>
+                </div>
               </ul>
             </div>
             <Logo></Logo>
@@ -88,32 +110,55 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
-          <div className="navbar-end gap-2">
-            {user ? (
-              <div className="flex items-center gap-1.5">
-                <img
-                  src={user.photoURL}
-                  className="w-10 h-10 border-2 border-accent object-cover rounded-full"
-                  alt=""
-                />
-                <button
-                  onClick={handleSignOutUser}
-                  className="btn btn-primary btn-outline"
+          <div className="navbar-end">
+            <div className="lg:flex hidden gap-2">
+              {user ? (
+                <div className="flex items-center gap-1.5">
+                  <img
+                    src={user.photoURL}
+                    className="w-10 h-10 border-2 border-accent object-cover rounded-full"
+                    alt=""
+                  />
+                  <button
+                    onClick={handleSignOutUser}
+                    className="btn btn-primary btn-outline"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to={`/login`}
+                  className="btn btn-primary btn-outline text-accent"
                 >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <Link
-                to={`/login`}
-                className="btn btn-primary btn-outline text-accent"
-              >
-                Sign In
+                  Sign In
+                </Link>
+              )}
+              <Link to={`/rider`} className="btn btn-primary text-accent">
+                Be a Rider
               </Link>
-            )}
-            <Link to={`/rider`} className="btn btn-primary text-accent">
-              Be a Rider
-            </Link>
+            </div>
+
+            <div className="flex lg:hidden gap-2">
+              {user ? (
+                
+                  <img
+                    src={user.photoURL}
+                    className="w-10 h-10 border-2 border-accent object-cover rounded-full"
+                    alt=""
+                  />
+                  
+                
+              ) : (
+                <Link
+                  to={`/login`}
+                  className="btn btn-primary btn-outline text-accent"
+                >
+                  Sign In
+                </Link>
+              )}
+              
+            </div>
           </div>
         </div>
       </MyContainer>

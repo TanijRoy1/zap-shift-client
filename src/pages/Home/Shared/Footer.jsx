@@ -16,7 +16,7 @@ const Footer = () => {
           hassle. From personal packages to business shipments — we deliver on
           time, every time.
         </p>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-wrap justify-center items-center gap-5">
           {[
             "Services",
             "Coverage",

@@ -255,7 +255,7 @@ const SendParcel = () => {
 
           <input
             type="submit"
-            className="btn btn-primary text-accent"
+            className="btn btn-primary text-accent mt-6"
             value="Send A Parcel"
           />
         </form>

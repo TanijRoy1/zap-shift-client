@@ -12,9 +12,7 @@ const AssignRiders = () => {
   const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
     queryKey: ["parcels", "parcel_paid"],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        "/parcels?deliveryStatus=parcel_paid"
-      );
+      const res = await axiosSecure.get("/parcels?deliveryStatus=parcel_paid");
       return res.data;
     },
   });
@@ -45,7 +43,7 @@ const AssignRiders = () => {
       riderName: rider.name,
       riderEmail: rider.email,
       parcelId: selectedParcel._id,
-      trackingId: selectedParcel.trackingId
+      trackingId: selectedParcel.trackingId,
     };
     axiosSecure
       .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
@@ -201,31 +199,13 @@ const AssignRiders = () => {
             </div>
 
             <div className="mt-3 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-1 text-sm">
                 <span
                   className={
-                    p.deliveryStatus === "pending-pickup"
-                      ? "badge badge-info"
-                      : p.deliveryStatus === "in-transit"
-                      ? "badge badge-warning"
-                      : p.deliveryStatus === "delivered"
-                      ? "badge badge-success"
-                      : p.deliveryStatus === "cancelled"
-                      ? "badge badge-error"
-                      : "badge"
+                    "badge badge-info capitalize text-xs font-semibold text-accent"
                   }
                 >
-                  {p.deliveryStatus?.replace(/-/g, " ") ?? "unknown"}
-                </span>
-
-                <span
-                  className={
-                    p.paymentStatus === "paid"
-                      ? "badge badge-success"
-                      : "badge badge-outline"
-                  }
-                >
-                  {p.paymentStatus ?? "unknown"}
+                  {p.deliveryStatus.split("_").join(" ") ?? "unknown"}
                 </span>
 
                 <span className="text-xs text-gray-500 ml-2">

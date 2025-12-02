@@ -176,12 +176,12 @@ const PaymentHistory = () => {
                     <FiCopy className="w-4 h-4" /> Copy
                   </button>
 
-                  <a
-                    href={`/track/${p.trackingId}`}
+                  <Link
+                    to={`/parcel-track/${p.trackingId}`}
                     className="px-3 py-1 bg-blue-600 text-white rounded-md flex items-center gap-1"
                   >
                     <FiExternalLink className="w-4 h-4" /> Track
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

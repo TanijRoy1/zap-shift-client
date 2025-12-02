@@ -3,11 +3,12 @@ import useRole from '../../../hooks/useRole';
 import DashboardAdminHome from './DashboardAdminHome';
 import DashboardRiderHome from './DashboardRiderHome';
 import DashboardUserHome from './DashboardUserHome';
+import Loading from '../../../components/Loading';
 
 const DashboardHome = () => {
     const {role, roleLoading} = useRole();
     if(roleLoading){
-        return <h1>Loaddiingg...</h1>
+        return <Loading></Loading>;
     }
 
     if(role === "admin"){
